@@ -22,6 +22,18 @@ class Launch
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Videogame::class, inversedBy="launch")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $videogame;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Platform::class, inversedBy="games")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $platform;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +47,30 @@ class Launch
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getVideogame(): ?Videogame
+    {
+        return $this->videogame;
+    }
+
+    public function setVideogame(?Videogame $videogame): self
+    {
+        $this->videogame = $videogame;
+
+        return $this;
+    }
+
+    public function getPlatform(): ?Platform
+    {
+        return $this->platform;
+    }
+
+    public function setPlatform(?Platform $platform): self
+    {
+        $this->platform = $platform;
 
         return $this;
     }
