@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GameListRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class GameList
      * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Videogame::class, inversedBy="gameLists")
+     */
+    private $videogames;
+
+    public function __construct()
+    {
+        $this->videogames = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,32 @@ class GameList
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Videogame[]
+     */
+    public function getVideogames(): Collection
+    {
+        return $this->videogames;
+    }
+
+    public function addVideogame(Videogame $videogame): self
+    {
+        if (!$this->videogames->contains($videogame)) {
+            $this->videogames[] = $videogame;
+        }
+
+        return $this;
+    }
+
+    public function removeVideogame(Videogame $videogame): self
+    {
+        if ($this->videogames->contains($videogame)) {
+            $this->videogames->removeElement($videogame);
+        }
 
         return $this;
     }

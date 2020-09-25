@@ -51,9 +51,21 @@ class Videogame
      */
     private $launch;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=GameList::class, mappedBy="videogames")
+     */
+    private $gameLists;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="videogame")
+     */
+    private $galleries;
+
     public function __construct()
     {
         $this->launch = new ArrayCollection();
+        $this->gameLists = new ArrayCollection();
+        $this->galleries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -157,5 +169,64 @@ class Videogame
     public function getLaunch(): Collection
     {
         return $this->launch;
+    }
+
+    /**
+     * @return Collection|GameList[]
+     */
+    public function getGameLists(): Collection
+    {
+        return $this->gameLists;
+    }
+
+    public function addGameList(GameList $gameList): self
+    {
+        if (!$this->gameLists->contains($gameList)) {
+            $this->gameLists[] = $gameList;
+            $gameList->addVideogame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameList(GameList $gameList): self
+    {
+        if ($this->gameLists->contains($gameList)) {
+            $this->gameLists->removeElement($gameList);
+            $gameList->removeVideogame($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gallery[]
+     */
+    public function getGalleries(): Collection
+    {
+        return $this->galleries;
+    }
+
+    public function addGallery(Gallery $gallery): self
+    {
+        if (!$this->galleries->contains($gallery)) {
+            $this->galleries[] = $gallery;
+            $gallery->setVideogame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(Gallery $gallery): self
+    {
+        if ($this->galleries->contains($gallery)) {
+            $this->galleries->removeElement($gallery);
+            // set the owning side to null (unless already changed)
+            if ($gallery->getVideogame() === $this) {
+                $gallery->setVideogame(null);
+            }
+        }
+
+        return $this;
     }
 }

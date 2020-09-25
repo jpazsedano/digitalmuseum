@@ -34,6 +34,11 @@ class Launch
      */
     private $platform;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $front_picture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class Launch
     public function setPlatform(?Platform $platform): self
     {
         $this->platform = $platform;
+
+        return $this;
+    }
+
+    public function getFrontPicture(): ?string
+    {
+        return $this->front_picture;
+    }
+
+    public function setFrontPicture(?string $front_picture): self
+    {
+        $this->front_picture = $front_picture;
 
         return $this;
     }

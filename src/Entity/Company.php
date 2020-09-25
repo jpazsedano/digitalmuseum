@@ -64,6 +64,11 @@ class Company
      */
     private $platforms;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $logo_image;
+
     public function __construct()
     {
         $this->child_companies = new ArrayCollection();
@@ -257,6 +262,18 @@ class Company
                 $platform->setCompany(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLogoImage(): ?string
+    {
+        return $this->logo_image;
+    }
+
+    public function setLogoImage(?string $logo_image): self
+    {
+        $this->logo_image = $logo_image;
 
         return $this;
     }
