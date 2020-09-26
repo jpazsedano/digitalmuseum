@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlatformRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,27 @@ class Platform
      * @ORM\Column(type="string", length=255)
      */
     private $generation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Launch::class, mappedBy="platform", orphanRemoval=true)
+     */
+    private $games;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="platforms")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
+
+    public function __construct()
+    {
+        $this->games = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +92,61 @@ class Platform
     public function setGeneration(string $generation): self
     {
         $this->generation = $generation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Launch[]
+     */
+    public function getGames(): Collection
+    {
+        return $this->games;
+    }
+
+    public function addGame(Launch $game): self
+    {
+        if (!$this->games->contains($game)) {
+            $this->games[] = $game;
+            $game->setPlatform($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Launch $game): self
+    {
+        if ($this->games->contains($game)) {
+            $this->games->removeElement($game);
+            // set the owning side to null (unless already changed)
+            if ($game->getPlatform() === $this) {
+                $game->setPlatform(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }
