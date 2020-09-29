@@ -22,8 +22,6 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        //return parent::index();
-
         $routeBuilder = $this->get(CrudUrlGenerator::class)->build();
         return $this->redirect($routeBuilder->setController(CompanyCrudController::class)->generateUrl());
     }
@@ -31,7 +29,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Museo');
+            ->setTitle('Museo Digital');
     }
 
     public function configureMenuItems(): iterable

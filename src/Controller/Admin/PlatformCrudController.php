@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 class PlatformCrudController extends AbstractCrudController
 {
@@ -22,7 +23,7 @@ class PlatformCrudController extends AbstractCrudController
             Field::new('name'),
             DateField::new('launch'),
             Field::new('generation'),
-            IdField::new('company')
+            AssociationField::new('company')
         ];
     }
 }
