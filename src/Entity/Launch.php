@@ -39,6 +39,11 @@ class Launch
      */
     private $front_picture;
 
+    public function __toString()
+    {
+        return $this->platform . ' - ' . $this->date->format('d/m/Y');
+    }
+
     public function getId(): ?int
     {
         return $this->id;
