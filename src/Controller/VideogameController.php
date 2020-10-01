@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Twig\Environment;
 
+/**
+ * @Route("/videogame")
+ */
 class VideogameController extends AbstractController
 {
     public function __construct(Environment $twig)
@@ -18,23 +21,23 @@ class VideogameController extends AbstractController
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/list", name="game-list")
      */
-    public function index(VideogameRepository $videogameRepo)
+    public function list(VideogameRepository $videogameRepo)
     {
         // TODO: Utilizar el paginator. Hay que pasar el contenido paginado, el anterior y el siguiente.
-        return new Response($this->twig->render('videogame/index.html.twig', [
+        return new Response($this->twig->render('videogame/list.html.twig', [
             'videogames' => $videogameRepo->findAll(),
         ]));
     }
 
     /**
-     * @Route("/videogame/{id}", name="videogame")
+     * @Route("/{id}", name="game-show")
      */
     public function show(Videogame $videogame)
     {
         // Parece que symfony se encarga de hacer la query por id (ya que es la clave primaria)
-        return new Response($this->twig->render('videogame/single.html.twig', [
+        return new Response($this->twig->render('videogame/show.html.twig', [
             'videogame' => $videogame,
         ]));
     }

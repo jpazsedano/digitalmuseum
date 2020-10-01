@@ -1,0 +1,7 @@
+TODO: -
+DONE: +
+
+- Investigate how to implement image upload in the EasyAdmin interface.
+- Create the pages needed.
+- Implement basic styling with bootstrap.
+- Implement access control to the admin area.
