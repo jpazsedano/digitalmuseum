@@ -16,4 +16,12 @@ class IndexController extends AbstractController
             'controller_name' => 'IndexController',
         ]);
     }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search()
+    {
+        return $this->render('index/search.html.twig');
+    }
 }
