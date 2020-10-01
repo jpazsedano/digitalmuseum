@@ -21,3 +21,18 @@ This is the key difference between a museum and a simple database.
 
 In this first version the expositions will just be game lists and the database itself.
 This will be improved in future versions and the architecture will be extendable.
+
+An 'exposition' is an ordered list of elements and info. The elements can from the most
+atomic games, companies and platforms, to the complex events, movements and timelines.
+The info is just some side text to give more details about the elements.
+
+For this first version, we will go for the simplest exposition implementation, that's the
+article with related elements. The article will be formed by paragraphs (info) and embeds.
+Those will show a summary of the element and will link to it.
+
+## User interaction
+
+The main advantage of a website is that the users can interact and share.
+For this first version the users will just be able to mark the games as played or not played.
+
+Further functionalities will be implemented in the future.
