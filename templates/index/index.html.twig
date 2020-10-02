@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Sections</h1>
+    <ul>
+        <li><a href="{{ path('platform-list')}}">Platforms</a></li>
+        <li><a href="{{ path('company-list')}}">Companies</a></li>
+        <li><a href="{{ path('game-list')}}">Videogames</a></li>
+    </ul>
+    <h2>Game selections</h2>
+    {% if selections|length > 0 %}
+    <ul>
+        {% for selection in selections %}
+        <li><a href="{{ path('selection-show', {id: selection.id})}}">{{ selection.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No selections to show</p>
+    {% endif %}
+</div>
+{% endblock %}

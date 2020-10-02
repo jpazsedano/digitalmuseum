@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ selection.name }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>{{selection.name}}</h1>
+    {% if selection.videogames|length > 0 %}
+    <ul>
+        {% for game in selection.videogames %}
+        <li><a href="{{ path('game-show', {id: game.id})}}">{{ game.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>The selection is empty :(</p>
+    {% endif %}
+</div>
+{% endblock %}

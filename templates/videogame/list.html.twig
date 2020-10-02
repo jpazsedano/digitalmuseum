@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Videogame list{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>List of videogames</h1>
+
+    {% if videogames|length > 0 %}
+    <ul>
+        {% for videogame in videogames %}
+        <li>
+            <a href="{{ path('game-show', {id: videogame.id}) }}"><h2>{{videogame}}</h2></a>
+            <div><a href="{{ path('company-show', {id: videogame.developer.id})}}">
+                    {{videogame.developer}}
+                </a> - <a href="{{ path('company-show', {id: videogame.distributor.id})}}">
+                    {{videogame.distributor}}
+                </a></div>
+            <h3>Releases</h3>
+            {% if videogame.launch|length > 0 %}
+            <ul>
+                {% for l in videogame.launch %}
+                    <li><a href="{{ path('platform-show', {id: l.platform.id})}}">{{ l.platform }}</a> - {{ l.date|date('d/m/Y') }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No releases</p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No videogames to show</p>
+    {% endif %}
+</div>
+{% endblock %}
