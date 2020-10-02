@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\GameList;
+use App\Repository\GameListRepository;
 
 /**
  * @Route("/selection")
@@ -15,15 +16,15 @@ class GameListController extends AbstractController
     /**
      * @Route("/list", name="selection-list")
      */
-    public function list()
+    public function list(GameListRepository $selectionRepo)
     {
         return $this->render('game_list/index.html.twig', [
-            'controller_name' => 'GameListController',
+            'selections' => $selectionRepo->findAll()
         ]);
     }
 
     /**
-     * @Route("/show", name="selection-show")
+     * @Route("/show/{id}", name="selection-show")
      */
     public function show(GameList $list)
     {

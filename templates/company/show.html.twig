@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{company.name}}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>{{company.name}}</h1>
+    <p>{{company.country}} - Founded in {{company.foundationDate|date('d/m/Y')}}</p>
+    {% if company.closeDate %}
+    <p>Closed in {{company.closeDate|date('d/m/Y')}}</p>
+    {% endif %}
+    {% if company.parentCompany %}
+    <p>Parent company: <a href="{{ path('company-show', {id: company.parentCompany.id}) }}">{{ company.parentCompany.name }}</a></p>
+    {% endif %}
+    <h2>Videogames developed</h2>
+    {% if company.developedVideogames|length > 0 %}
+    <ul>
+        {% for videogame in company.developedVideogames %}
+        <li><a href="{{path('game-show', {id: videogame.id})}}">{{ videogame.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No videogames developed</p>
+    {% endif %}
+</div>
+{% endblock %}

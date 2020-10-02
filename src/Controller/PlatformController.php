@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Platform;
+use App\Repository\PlatformRepository;
 
 /**
  * @Route("/platform")
@@ -15,15 +16,15 @@ class PlatformController extends AbstractController
     /**
      * @Route("/list", name="platform-list")
      */
-    public function list()
+    public function list(PlatformRepository $platformRepo)
     {
         return $this->render('platform/list.html.twig', [
-            'controller_name' => 'PlatformController',
+            'platforms' => $platformRepo->findAll()
         ]);
     }
 
     /**
-     * @Route("/${id}", name="platform-show")
+     * @Route("/show/{id}", name="platform-show")
      */
     public function show(Platform $platform)
     {

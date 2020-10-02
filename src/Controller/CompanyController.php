@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Company;
+use App\Repository\CompanyRepository;
 
 /**
  * @Route("/company")
@@ -15,15 +16,15 @@ class CompanyController extends AbstractController
     /**
      * @Route("/list", name="company-list")
      */
-    public function list()
+    public function list(CompanyRepository $companyRepo)
     {
         return $this->render('company/list.html.twig', [
-            'controller_name' => 'CompanyController',
+            'companies' => $companyRepo->findAll()
         ]);
     }
 
     /**
-     * @Route("/show", name="company-show")
+     * @Route("/show/{id}", name="company-show")
      */
     public function show(Company $company)
     {

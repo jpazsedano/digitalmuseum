@@ -5,14 +5,18 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Repository\GameListRepository;
+
 class IndexController extends AbstractController
 {
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(GameListRepository $listRepo)
     {
-        return $this->render('index/index.html.twig', []);
+        return $this->render('index/index.html.twig', [
+            'selections' => $listRepo->findAll()
+        ]);
     }
 
     /**

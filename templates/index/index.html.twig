@@ -10,13 +10,22 @@
 {% endblock %}
 
 {% block body %}
-<div>
+<div class="example-wrapper">
     <h1>Sections</h1>
     <ul>
         <li><a href="{{ path('platform-list')}}">Platforms</a></li>
         <li><a href="{{ path('company-list')}}">Companies</a></li>
         <li><a href="{{ path('game-list')}}">Videogames</a></li>
     </ul>
-    <p>Highlighted articles soon</p>
+    <h2>Game selections</h2>
+    {% if selections|length > 0 %}
+    <ul>
+        {% for selection in selections %}
+        <li><a href="{{ path('selection-show', {id: selection.id})}}">{{ selection.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No selections to show</p>
+    {% endif %}
 </div>
 {% endblock %}

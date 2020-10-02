@@ -15,6 +15,7 @@ use App\Entity\Company;
 use App\Entity\Platform;
 use App\Entity\Videogame;
 use App\Entity\Launch;
+use App\Entity\GameList;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -40,5 +41,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Platforms', 'fas fa-gamepad', Platform::class);
         yield MenuItem::linkToCrud('Videogames', 'fas fa-ghost', Videogame::class);
         yield MenuItem::linkToCrud('Releases', 'fas fa-rocket', Launch::class);
+        yield MenuItem::linkToCrud('Selections', 'far fa-list-alt', GameList::class);
     }
 }
